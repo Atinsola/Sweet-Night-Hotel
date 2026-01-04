@@ -1,0 +1,555 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hotel Paradise</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+  <style>
+    /* Typography */
+    .luxury-font {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 1px;
+    }
+    .glow-text {
+      text-shadow: 0 0 8px #a855f7, 0 0 16px #a855f7;
+    }
+
+    /* Navbar underline */
+    .nav-link {
+      position: relative;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: #a855f7;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Navbar scroll style */
+    .scrolled {
+      background-color: #000;
+      border-bottom: 2px solid #a855f7;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile menu animation */
+    .mobile-menu {
+      transform-origin: top;
+      transform: scaleY(0);
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      pointer-events: none;
+      transition: transform 0.3s ease, opacity 0.3s ease, max-height 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: scaleY(1);
+      opacity: 1;
+      max-height: 400px;
+      pointer-events: auto;
+    }
+
+    /* Hamburger morph to X */
+    .hamburger {
+      width: 28px;
+      height: 20px;
+      position: relative;
+    }
+    .hamburger span {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #a855f7;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .hamburger span:nth-child(1) {
+      top: 0;
+    }
+    .hamburger span:nth-child(2) {
+      top: 9px;
+    }
+    .hamburger span:nth-child(3) {
+      bottom: 0;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Hero slideshow */
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0;
+      animation: crossfade 24s infinite;
+    }
+    .slide:first-child {
+      opacity: 1;
+    }
+
+    /* Crossfade: overlap so no blank screen */
+    @keyframes crossfade {
+      0% {
+        opacity: 0;
+      }
+      8.33% {
+        opacity: 1;
+      }
+      16.67% {
+        opacity: 1;
+      }
+      25% {
+        opacity: 0;
+      }
+    }
+
+    .slide:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .slide:nth-child(2) {
+      animation-delay: 4s;
+    }
+    .slide:nth-child(3) {
+      animation-delay: 8s;
+    }
+    .slide:nth-child(4) {
+      animation-delay: 12s;
+    }
+    .slide:nth-child(5) {
+      animation-delay: 16s;
+    }
+    .slide:nth-child(6) {
+      animation-delay: 20s;
+    }
+  </style>
+</head>
+<div class="bg-black text-white font-sans">
+  <!-- Navbar -->
+  <nav id="navbar" class="fixed w-full z-20 top-0 left-0 bg-black shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        <!-- Logo -->
+        <a href="#" class="flex items-center flex-shrink-0">
+          <svg viewBox="0 0 240 240" class="h-10 w-10 md:h-12 md:w-12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="120" cy="120" r="100" fill="black" stroke="#a855f7" stroke-width="6"/>
+            <path d="M60 150 L90 90 L120 150 L150 90 L180 150 Z" fill="#a855f7" stroke="white" stroke-width="3"/>
+          </svg>
+        </a>
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8 items-center">
+          <a href="hotel .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
+          <a href="room.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
+          <a href="gallery.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+          <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
+        </div>
+        <!-- Mobile Hamburger -->
+        <div class="md:hidden flex items-center">
+          <button id="menu-btn" class="focus:outline-none" aria-label="Toggle menu">
+            <div id="hamburger" class="hamburger"><span></span><span></span><span></span></div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-black px-4 pb-4 shadow-lg">
+      <a href="home .html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
+      <a href="room.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
+      <a href="gallery.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+      <a href="contact.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="relative h-screen overflow-hidden mt-16 flex items-center justify-center">
+    <div class="absolute inset-0">
+      <img src="WhatsApp Image 2026-01-01 at 18.44.57_3356eb50.jpg" alt="Luxury hotel exterior daytime" class="slide">
+<img src="WhatsApp Image 2025-12-31 at 13.46.05_a62a242f.jpg" alt="" class="slide">
+<img src="WhatsApp Image 2026-01-01 at 18.45.59_f5ef126c.jpg" alt="" class="slide">
+   <img src="WhatsApp Image 2026-01-01 at 18.48.39_9f87c506.jpg" alt="" class="slide">
+     </div>
+    <!-- Hero content -->
+    <div class="relative z-10 flex flex-col items-center justify-center text-center text-white px-4">
+      <h1 class="text-4xl md:text-6xl font-bold luxury-font glow-text">Welcome to Hotel Paradise</h1>
+      <p class="mt-4 text-lg md:text-xl max-w-xl">Experience magical nights and luxury comfort in the heart of the city.</p>
+      <a href="#booking" class="mt-6 px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg text-lg font-semibold transition">Book Now</a>
+    </div>
+  </section>
+ <script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburger = document.getElementById('hamburger');
+  const navbar = document.getElementById('navbar');
+
+  // Toggle mobile menu
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close when a link is clicked
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    const withinMenu = mobileMenu.contains(e.target);
+    const withinBtn = menuBtn.contains(e.target);
+    if (!withinMenu && !withinBtn) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Optional: navbar scroll style
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
+<!-- Hotels Section -->
+<section id="hotels" class="py-16 bg-gray-700 text-white text-center">
+  <h2 class="text-3xl font-bold luxury-font glow-text mb-8">Our Rooms</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 px-10">
+
+    <!-- 20 hotel cards -->
+    <!-- Hotel 1 -->
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer  "
+         data-title="The Royal Chamber"
+         data-description="Opulent design with regal touches."
+         data-image="https://vcphotels.com/wp-content/uploads/2024/03/VCP-79-hj.webp">
+      <img src="https://vcphotels.com/wp-content/uploads/2024/03/VCP-79-hj.webp" alt="Hotel 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold"> The Royal Chamber
+
+</h3>
+      <p class="mt-2">Opulent design with regal touches.</p>
+    </div>
+    <!-- Hotel 1 -->
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Velvet Dream Room (Dulex Twin)"
+
+
+         data-description="Luxury hotel with city views."
+         data-image="https://vcphotels.com/wp-content/uploads/2024/03/VCP-79-lk.webp">
+      <img src="https://vcphotels.com/wp-content/uploads/2024/03/VCP-79-lk.webp" alt="Hotel 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold"> Velvet Dream Room(Dulex Twin) 
+
+</h3>
+      <p class="mt-2">Soft textures and luxurious comfort..</p>
+    </div>
+    <!-- Hotel 1 -->
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Crystal Haven (Single Dulex)
+
+"
+         data-description="Bright, sparkling décor with a modern edge."
+         data-image="https://vcphotels.com/wp-content/uploads/2024/03/VCP-79-stu.webp">
+      <img src="https://vcphotels.com/wp-content/uploads/2024/03/VCP-79-stu.webp" alt="Hotel 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Crystal Haven
+
+</h3>
+      <p class="mt-2">Bright, sparkling décor with a modern edge.</p>
+    </div>
+    <!-- Hotel 1 -->
+    <div class="bg-black p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="- Ivory Bliss Room
+
+"
+         data-description="Luxury hotel with city views."
+         data-image="https://mythos.rw/wp-content/uploads/2023/02/Standard-Room2.jpg.webp">
+      <img src="https://mythos.rw/wp-content/uploads/2023/02/Standard-Room2.jpg.webp" alt="Hotel 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold"> Ivory Bliss Room
+
+</h3>
+      <p class="mt-2">Minimalist white tones and calming ambiance for pure relaxation..</p>
+    </div>
+    <!-- Hotel 1 -->
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Grand Plaza (Twiny)"
+         data-description=" Luxurious and spacious."
+         data-image="https://mythos.rw/wp-content/uploads/2023/02/Double-Room-Twin-Beds.jpg.webp">
+      <img src="https://mythos.rw/wp-content/uploads/2023/02/Double-Room-Twin-Beds.jpg.webp" alt="Hotel 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Grand Plaza(Twiny)</h3>
+      <p class="mt-2"> Luxurious and spacious..</p>
+    </div>
+    <!-- Hotel 1 -->
+    <div class="bg-black p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Cottage Charm"
+         data-description="Cozy and homey.."
+         data-image="https://mythos.rw/wp-content/uploads/2023/02/DSC_0209.jpg.webp">
+      <img src="https://mythos.rw/wp-content/uploads/2023/02/DSC_0209.jpg.webp" alt="Hotel 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Cottage Charm</h3>
+      <p class="mt-2">Cozy and homey.</p>
+    </div>
+    <!-- Hotel 1 -->
+    
+   
+</section>
+
+<!-- Suites Section -->
+<section id="suites" class="py-16 bg-gray-800 text-white text-center">
+  <h2 class="text-3xl font-bold luxury-font glow-text mb-8">Our Suites</h2>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 px-6">
+    <!-- 20 suite cards -->
+    <!-- Suite 1 -->
+  
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title=" Starlight Suite"
+         data-description="Gazing at the night sky.."
+         data-image="https://bonhotels.com/wp-content/uploads/2022/09/classic-asaba-stay-3.png">
+      <img src="https://bonhotels.com/wp-content/uploads/2022/09/classic-asaba-stay-3.png" alt="Suite 2" class="rounded mb-4">
+      <h3 class="text-xl font-semibold"> Starlight Suite</h3>
+      <p class="mt-2">Gazing at the night sky..</p>
+    </div>
+    <div class="bg-black p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Starlight Suites (Television View)"
+         data-description=">Gazing at the night sky.."
+         data-image="https://bonhotels.com/wp-content/uploads/2022/09/classic-asaba-stay-1.png">
+      <img src="https://bonhotels.com/wp-content/uploads/2022/09/classic-asaba-stay-1.png" alt="Suite 2" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Starlight Suites (Television View)</h3>
+      <p class="mt-2">Where You View Everything Just In OneSiting.</p>
+    </div>
+    <div class="bg-black p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title=" (Starlight)Packaged Set View"
+         data-description=" Vibrant and playful."
+         data-image="https://bonhotels.com/wp-content/uploads/2022/09/deluxe-asaba-stay-2.png">
+      <img src="https://bonhotels.com/wp-content/uploads/2022/09/deluxe-asaba-stay-2.png" alt="Suite 2" class="rounded mb-4">
+      <h3 class="text-xl font-semibold"> (Starlight)Packaged Set View</h3>
+      <p class="mt-2"> Vibrant and playful..</p>
+    </div>
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="(Starlight )Lavoratary"
+         data-description="Comfort and Cleaniess."
+         data-image="https://bonhotels.com/wp-content/uploads/2022/09/studio-asaba-stay-30-09-2022-at-11.47.44.png">
+      <img src="https://bonhotels.com/wp-content/uploads/2022/09/studio-asaba-stay-30-09-2022-at-11.47.44.png" alt="Suite 2" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">(Starlight )Lavoratary</h3>
+      <p class="mt-2">Privacy with Self Comfort.</p>
+    </div>
+    <div class="bg-black p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Mini Suite"
+         data-description="Spacious suite with balcony view."
+         data-image="https://bonhotels.com/wp-content/uploads/2022/09/classic-suite-asaba-main-page-images3.png">
+      <img src="https://bonhotels.com/wp-content/uploads/2022/09/classic-suite-asaba-main-page-images3.png" alt="Suite 2" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Room and Dressing Mirror</h3>
+      <p class="mt-2">Spacious suite with balcony view.</p>
+    </div>
+    <div class="bg-black to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Mini Suite(Dressing Room)"
+         data-description=" Fresh and floral."
+         data-image="https://bonhotels.com/wp-content/uploads/2022/09/classic-suite-asaba-main-page-images1.png">
+      <img src="https://bonhotels.com/wp-content/uploads/2022/09/classic-suite-asaba-main-page-images1.png" alt="Suite 2" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Mini Suite(Dressing Room)</h3>
+      <p class="mt-2">Where Your Bright And ConfidentSelf Is Seen.</p>
+    </div>
+   
+    <!-- Suite 3–20 -->
+    <!-- Repeat same structure, changing title/description/image -->
+    <!-- ... -->
+  </div>
+</section>
+
+<!-- Airbnb Section -->
+<section id="airbnb" class="py-16 bg-gray-700 text-white text-center">
+  <h2 class="text-3xl font-bold luxury-font glow-text mb-8">Airbnb Options</h2>
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 px-6">
+    <!-- 20 airbnb cards -->
+    <!-- Airbnb 1 -->
+    <div class="bg-black from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Airbnb 1"
+         data-description="Cozy Airbnb apartment in the city."
+         data-image="https://a0.muscache.com/im/pictures/88326546/5cf4bcac_original.jpg?im_w=960">
+      <img src="https://a0.muscache.com/im/pictures/88326546/5cf4bcac_original.jpg?im_w=960" alt="Airbnb 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Airbnb 1</h3>
+      <p class="mt-2">Cozy Airbnb apartment in the city.</p>
+    </div>
+  <div class="bg-black from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Airbnb 1"
+         data-description="Cozy Airbnb apartment in the city."
+         data-image="https://a0.muscache.com/im/pictures/hosting/Hosting-1396997298072760354/original/3c241919-1347-45d9-b083-0ed63078feaf.jpeg?im_w=960">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1396997298072760354/original/3c241919-1347-45d9-b083-0ed63078feaf.jpeg?im_w=960" alt="Airbnb 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Airbnb 1</h3>
+      <p class="mt-2">Cozy Airbnb apartment in the city.</p>
+    </div>
+     <div class="bg-black from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Airbnb 1"
+         data-description="Cozy Airbnb apartment in the city."
+         data-image="https://a0.muscache.com/im/pictures/hosting/Hosting-1396997298072760354/original/21fc162f-3df7-4491-a832-207c63eddf1a.jpeg?im_w=720">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1396997298072760354/original/21fc162f-3df7-4491-a832-207c63eddf1a.jpeg?im_w=720" alt="Airbnb 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Airbnb 1</h3>
+      <p class="mt-2">Cozy Airbnb apartment in the city.</p>
+    </div>
+     <div class="bg-black from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Airbnb 1"
+         data-description="Cozy Airbnb apartment in the city."
+         data-image="https://a0.muscache.com/im/pictures/hosting/Hosting-1541828387283033250/original/8650d019-caea-467a-9dec-3a31ed040b6c.jpeg?im_w=960">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1541828387283033250/original/8650d019-caea-467a-9dec-3a31ed040b6c.jpeg?im_w=960" alt="Airbnb 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Airbnb 1</h3>
+      <p class="mt-2">Cozy Airbnb apartment in the city.</p>
+    </div>
+    <div class="bg-black from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Airbnb 1"
+         data-description="Cozy Airbnb apartment in the city."
+         data-image="https://a0.muscache.com/im/pictures/hosting/Hosting-1215739025093936527/original/d7450208-7688-4d56-b283-210408f6dc09.jpeg?im_w=960">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1215739025093936527/original/d7450208-7688-4d56-b283-210408f6dc09.jpeg?im_w=960" alt="Airbnb 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Airbnb 1</h3>
+      <p class="mt-2">Cozy Airbnb apartment in the city.</p>
+    </div>
+      <div class="bg-black from-purple-600 to-purple-900 p-6 rounded-lg shadow-lg cursor-pointer"
+         data-title="Airbnb 1"
+         data-description="Cozy Airbnb apartment in the city."
+         data-image="https://a0.muscache.com/im/pictures/hosting/Hosting-1547847126053681290/original/41f404c4-002e-49d3-a20d-0f252d48d944.jpeg?im_w=960">
+      <img src="https://a0.muscache.com/im/pictures/hosting/Hosting-1547847126053681290/original/41f404c4-002e-49d3-a20d-0f252d48d944.jpeg?im_w=960" alt="Airbnb 1" class="rounded mb-4">
+      <h3 class="text-xl font-semibold">Airbnb 1</h3>
+      <p class="mt-2">Cozy Airbnb apartment in the city.</p>
+    </div>
+     
+  
+    
+    
+  <!-- Booking Modal -->
+<div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
+  
+  <!-- Main container now black -->
+  <div class="bg-black text-purple-400 rounded-lg shadow-lg max-w-5xl w-full p-6 relative flex flex-col md:flex-row gap-6">
+    
+    <!-- Close Button -->
+    <button id="closeModal" class="absolute top-2 right-2 text-purple-400 hover:text-purple-300 text-2xl glow-text">&times;</button>
+    
+    <!-- Image Section (full side) -->
+    <div class="md:w-1/2 w-full">
+      <img id="modalImage" src="" alt="Selected Item" class="rounded w-full h-full object-cover">
+    </div>
+    
+    <!-- Booking Form Section (full side) -->
+    <div class="md:w-1/2 w-full flex flex-col justify-center">
+      <h3 id="modalTitle" class="text-2xl font-bold mb-4 glow-text">Room Title</h3>
+      <p id="modalDescription" class="mb-4 glow-text">Room description goes here...</p>
+      
+      <!-- Booking Form -->
+      <form class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium glow-text">Full Name</label>
+          <input type="text" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your name">
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium glow-text">Email</label>
+          <input type="email" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your email">
+        </div>
+        
+        <!-- Responsive layout -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <div class="w-full sm:w-1/2">
+            <label class="block text-sm font-medium glow-text">Check-in</label>
+            <input type="date" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+          </div>
+          <div class="w-full sm:w-1/2">
+            <label class="block text-sm font-medium glow-text">Check-out</label>
+            <input type="date" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium glow-text">Guests</label>
+          <input type="number" min="1" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Number of guests">
+        </div>
+        
+        <button type="submit" class="w-full bg-black border border-purple-600 hover:bg-purple-900 text-purple-400 py-3 rounded-lg font-semibold glow-text">
+          Confirm Booking
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<div>
+
+   
+    
+
+
+<script>
+  const bookingModal = document.getElementById('bookingModal');
+  const closeModal = document.getElementById('closeModal');
+  const modalImage = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDescription = document.getElementById('modalDescription');
+
+  document.querySelectorAll('#hotels div[data-title], #suites div[data-title], #airbnb div[data-title]').forEach(card => {
+    card.addEventListener('click', () => {
+      modalTitle.textContent = card.getAttribute('data-title');
+      modalDescription.textContent = card.getAttribute('data-description');
+      modalImage.src = card.getAttribute('data-image');
+      bookingModal.classList.remove('hidden');
+    });
+  });
+
+  closeModal.addEventListener('click', () => bookingModal.classList.add('hidden'));
+  bookingModal.addEventListener('click', (e) => {
+    if (e.target === bookingModal) bookingModal.classList.add('hidden');
+  });
+</script>
+</div>
+</div>
+
+
+<footer class="bg-black text-purple-300 py-12 mt-16">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-12">
+
+    <!-- Quick Links -->
+    <div class="flex-1">
+      <h3 class="luxury-font text-xl mb-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">Quick Links</h3>
+      <ul class="space-y-2">
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Home</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Rooms & Suites</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Gallery</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Bookings</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Contact</li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="flex-1">
+      <h3 class="luxury-font text-xl mb-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">Contact Us</h3>
+      <p>Email: <span class="text-purple-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">atinsolaoladosu</span></p>
+      <p>Phone: <span class="text-purple-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">09112305703</span></p>
+      <p>Open 24/7 • Always at your service</p>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="mt-10 border-t border-purple-700 pt-4 text-center text-sm text-purple-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">
+    © 2026 Hotel Paradise. All Rights Reserved.
+  </div>
+</footer>
+

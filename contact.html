@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Paradise – Contact</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
+<style>
+  body { font-family: 'Cinzel', serif; background-color: black; color: white; }
+  .luxury-font { letter-spacing: 1px; }
+  .glow-text { text-shadow: 0 0 8px #a855f7, 0 0 16px #a855f7; }
+
+  .nav-link { position: relative; }
+  .nav-link::after {
+    content: ''; position: absolute; width: 0%; height: 2px;
+    bottom: -4px; left: 0; background-color: #a855f7;
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .hamburger { width: 28px; height: 20px; position: relative; }
+  .hamburger span {
+    position: absolute; left: 0; right: 0; height: 2px; background: #a855f7;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { bottom: 0; }
+  .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  .mobile-menu {
+    transform-origin: top; transform: scaleY(0); opacity: 0; max-height: 0;
+    overflow: hidden; pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease, max-height 0.3s ease;
+  }
+  .mobile-menu.open {
+    transform: scaleY(1); opacity: 1; max-height: 400px; pointer-events: auto;
+  }
+</style>
+</head>
+
+<body class="bg-black text-white">
+
+<!-- NAVBAR -->
+<nav id="navbar" class="fixed w-full z-20 top-0 left-0 bg-black shadow-lg">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-16">
+      <a href="#hero" class="flex items-center flex-shrink-0">
+        <svg viewBox="0 0 240 240" class="h-10 w-10 md:h-12 md:w-12" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="120" cy="120" r="100" fill="black" stroke="#a855f7" stroke-width="6"/>
+          <path d="M60 150 L90 90 L120 150 L150 90 L180 150 Z" fill="#a855f7" stroke="white" stroke-width="3"/>
+        </svg>
+        <span class="ml-3 luxury-font glow-text text-xl">Hotel Paradise</span>
+      </a>
+
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="home .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
+        <a href="room.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
+        <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
+         <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+      </div>
+
+      <div class="md:hidden flex items-center">
+        <button id="menu-btn" class="focus:outline-none" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+          <div id="hamburger" class="hamburger"><span></span><span></span><span></span></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="mobile-menu md:hidden bg-black px-4 pb-4 shadow-lg">
+    <a href="home .html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
+    <a href="room.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
+          <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+    <a href="contact.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="relative h-screen overflow-hidden mt-16 flex items-center justify-center">
+  <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="Lobby">
+  <div class="relative z-10 text-center px-6">
+    <h1 class="text-5xl luxury-font glow-text mb-4">Contact Us</h1>
+    <p class="mb-6">We’d love to hear from you. Reach out today.</p>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section id="contact" class="py-20 px-6 max-w-3xl mx-auto">
+  <h2 class="text-3xl glow-text mb-8 text-center">Get in Touch</h2>
+  <form class="space-y-6 bg-gray-900 p-8 rounded-lg shadow-lg">
+    <div>
+      <label class="block text-sm font-medium glow-text">Full Name</label>
+      <input type="text" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your name">
+    </div>
+    <div>
+      <label class="block text-sm font-medium glow-text">Email</label>
+      <input type="email" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your email">
+    </div>
+    <div>
+      <label class="block text-sm font-medium glow-text">Message</label>
+      <textarea rows="5" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Write your message"></textarea>
+    </div>
+    <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 rounded-lg font-semibold glow-text">
+      Send Message
+    </button>
+  </form>
+</section>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuBtn.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
+
+<footer class="bg-gray-700 text-purple-300 py-12 mt-16">
+  <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-12">
+
+    <!-- Quick Links -->
+    <div class="flex-1">
+      <h3 class="luxury-font text-xl mb-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">Quick Links</h3>
+      <ul class="space-y-2">
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Home</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Rooms & Suites</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Gallery</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Bookings</li>
+        <li class="hover:text-white hover:drop-shadow-[0_0_12px_rgba(199,125,255,0.9)] cursor-pointer">Contact</li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="flex-1">
+      <h3 class="luxury-font text-xl mb-4 text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.7)]">Contact Us</h3>
+      <p>Email: <span class="text-purple-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">atinsolaoladosu</span></p>
+      <p>Phone: <span class="text-purple-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">09112305703</span></p>
+      <p>Open 24/7 • Always at your service</p>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="mt-10 border-t border-purple-700 pt-4 text-center text-sm text-purple-400 drop-shadow-[0_0_6px_rgba(168,85,247,0.7)]">
+    © 2026 Hotel Paradise. All Rights Reserved.
+  </div>
+</footer>
+
