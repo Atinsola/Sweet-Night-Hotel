@@ -161,8 +161,8 @@
         <div class="hidden md:flex space-x-8 items-center">
           <a href="hotel .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
           <a href="room.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
-          <a href="#" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
-          <a href="#" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
+          <a href="gallery.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+          <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
         </div>
         <!-- Mobile Hamburger -->
         <div class="md:hidden flex items-center">
@@ -174,10 +174,10 @@
     </div>
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="mobile-menu md:hidden bg-black px-4 pb-4 shadow-lg">
-      <a href="#" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
-      <a href="#" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
-      <a href="#" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
-      <a href="#" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
+      <a href="home .html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
+      <a href="room.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
+      <a href="gallery.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+      <a href="contact.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
     </div>
   </nav>
   <!-- Hero Section -->
@@ -484,9 +484,7 @@
           <input type="number" min="1" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Number of guests">
         </div>
         
-        <button type="submit" class="w-full bg-black border border-purple-600 hover:bg-purple-900 text-purple-400 py-3 rounded-lg font-semibold glow-text">
-          Confirm Booking
-        </button>
+        <button class="closeModal absolute top-2 right-2 text-purple-400 hover:text-purple-300 text-2xl glow-text">&times;</button>
       </form>
     </div>
   </div>
@@ -496,14 +494,13 @@
    
     
 
-
 <script>
   const bookingModal = document.getElementById('bookingModal');
-  const closeModal = document.getElementById('closeModal');
   const modalImage = document.getElementById('modalImage');
   const modalTitle = document.getElementById('modalTitle');
   const modalDescription = document.getElementById('modalDescription');
 
+  // Attach click listeners to all cards
   document.querySelectorAll('#hotels div[data-title], #suites div[data-title], #airbnb div[data-title]').forEach(card => {
     card.addEventListener('click', () => {
       modalTitle.textContent = card.getAttribute('data-title');
@@ -513,9 +510,18 @@
     });
   });
 
-  closeModal.addEventListener('click', () => bookingModal.classList.add('hidden'));
+  // Attach close event to ALL close buttons
+  document.querySelectorAll('.closeModal').forEach(btn => {
+    btn.addEventListener('click', () => {
+      bookingModal.classList.add('hidden');
+    });
+  });
+
+  // Close when clicking outside modal content
   bookingModal.addEventListener('click', (e) => {
-    if (e.target === bookingModal) bookingModal.classList.add('hidden');
+    if (e.target === bookingModal) {
+      bookingModal.classList.add('hidden');
+    }
   });
 </script>
 </div>
