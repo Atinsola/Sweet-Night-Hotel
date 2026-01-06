@@ -83,6 +83,7 @@
         <a href="home .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
         <a href="room.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
                    <a href="gallery.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+                               <a href="book .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">About</a>
         <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
                 
         
@@ -100,6 +101,7 @@
     <a href="home .html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
     <a href="room.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
     <a href="gallery.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
+                <a href="book .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">About</a>
     <a href="contact.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
     
   </div>
@@ -122,47 +124,96 @@ Our rooms are designed to provide you with a tranquil retreat, with modern ameni
 
 <!-- ... (rest of your code) ... -->
 
+
 <!-- Booking Modal -->
 <div id="bookingModal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50">
-  <div class="bg-black text-purple-400 rounded-lg shadow-lg max-w-3xl w-full p-6 relative flex flex-col md:flex-row gap-6">
-    <!-- Close -->
-    <button id="closeModal" class="absolute top-2 right-2 text-purple-400 hover:text-purple-300 text-2xl glow-text">&times;</button>
-    <!-- Image -->
-    <div class="md:w-1/2 w-full">
-      <img id="modalImage" src="" alt="Selected Room" class="rounded w-full h-full object-cover">
+  <div class="bg-black text-purple-400 rounded-lg shadow-lg max-w-5xl w-full p-6 relative flex flex-col md:flex-row gap-6">
+    
+    <!-- Close Button -->
+    <button class="closeModal absolute top-2 right-2 z-50 text-purple-400 hover:text-purple-300 text-2xl glow-text" aria-label="Close">&times;</button>
+    
+    <!-- Image Section (desktop only) -->
+    <div class="hidden md:block md:w-1/2">
+      <img id="modalImage" src="" alt="Selected Item" class="rounded w-full h-full object-cover">
     </div>
-    <!-- Form -->
+    
+    <!-- Booking Form Section -->
     <div class="md:w-1/2 w-full flex flex-col justify-center">
       <h3 id="modalTitle" class="text-2xl font-bold mb-4 glow-text">Room Title</h3>
       <p id="modalDescription" class="mb-4 glow-text">Room description goes here...</p>
+      
       <form class="space-y-4">
         <div>
           <label class="block text-sm font-medium glow-text">Full Name</label>
-          <input type="text" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your name">
+          <input type="text" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2" placeholder="Enter your name">
         </div>
         <div>
           <label class="block text-sm font-medium glow-text">Email</label>
-          <input type="email" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Enter your email">
+          <input type="email" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2" placeholder="Enter your email">
         </div>
         <div class="flex flex-col sm:flex-row gap-4">
           <div class="w-full sm:w-1/2">
             <label class="block text-sm font-medium glow-text">Check-in</label>
-            <input type="date" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <input type="date" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2">
           </div>
           <div class="w-full sm:w-1/2">
             <label class="block text-sm font-medium glow-text">Check-out</label>
-            <input type="date" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <input type="date" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2">
           </div>
         </div>
         <div>
           <label class="block text-sm font-medium glow-text">Guests</label>
-          <input type="number" min="1" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500" placeholder="Number of guests">
+          <input type="number" min="1" class="w-full border border-purple-600 bg-black text-purple-300 rounded px-3 py-2" placeholder="Number of guests">
         </div>
-        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg font-semibold glow-text">Confirm Booking</button>
       </form>
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const bookingModal = document.getElementById('bookingModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+
+    // Ensure containers exist before querying
+    const cards = document.querySelectorAll('#hotels div[data-title], #suites div[data-title], #airbnb div[data-title]');
+    if (cards.length === 0) {
+      console.warn('No cards found. Make sure your cards are inside #hotels, #suites, or #airbnb and have data-title/data-description/data-image.');
+    }
+
+    // Open modal when clicking cards
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const title = card.getAttribute('data-title')?.trim() || 'Room';
+        const desc = card.getAttribute('data-description')?.trim() || '';
+        const img = card.getAttribute('data-image')?.trim() || '';
+
+        modalTitle.textContent = title;
+        modalDescription.textContent = desc;
+        modalImage.src = img; // image shows on desktop only (hidden on mobile)
+
+        bookingModal.classList.remove('hidden');
+      });
+    });
+
+    // Close modal for all elements with .closeModal
+    document.querySelectorAll('.closeModal').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        bookingModal.classList.add('hidden');
+      });
+    });
+
+    // Close when clicking backdrop only
+    bookingModal.addEventListener('click', (e) => {
+      if (e.target === bookingModal) {
+        bookingModal.classList.add('hidden');
+      }
+    });
+  });
+</script>
 
 <!-- ROOMS -->
 <section id="rooms" class="py-20 px-6 max-w-7xl mx-auto">
@@ -265,11 +316,7 @@ Our rooms are designed to provide you with a tranquil retreat, with modern ameni
     © 2026 Hotel Paradise. All Rights Reserved.
   </div>
 </footer>
-<script>
-  document.getElementById('menu-btn').addEventListener('click', () => {
-    document.getElementById('hamburger').classList.toggle('open');
-    document.getElementById('mobile-menu').classList.toggle('open');
-  });
+
  
   </script>
   
