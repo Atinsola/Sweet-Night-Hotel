@@ -83,7 +83,7 @@
         <a href="home .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
         <a href="room.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
                    <a href="gallery.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
-                               <a href="book .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">About</a>
+                     <a href="book .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">About</a>
         <a href="contact.html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
                 
         
@@ -101,7 +101,9 @@
     <a href="home .html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Home</a>
     <a href="room.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Rooms</a>
     <a href="gallery.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Gallery</a>
-                <a href="book .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">About</a>
+        <a href="book .html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">About</a>
+
+                <!-- <a href="book .html" class="nav-link text-white glow-text luxury-font hover:text-purple-400 transition">About</a> -->
     <a href="contact.html" class="block py-2 text-white glow-text luxury-font hover:text-purple-400 transition">Contact</a>
     
   </div>
@@ -270,6 +272,7 @@ Our rooms are designed to provide you with a tranquil retreat, with modern ameni
   document.getElementById('closeModal').addEventListener('click', () => {
     document.getElementById('bookingModal').classList.add('hidden');
   });
+  
 </script>
 <style>
   @media (max-width: 768px) {
@@ -285,6 +288,7 @@ Our rooms are designed to provide you with a tranquil retreat, with modern ameni
     height: 200px;
   }
 }
+
 </style>
 <footer class="bg-gray-800 text-purple-300 py-12 mt-16">
   <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between gap-12">
@@ -319,6 +323,23 @@ Our rooms are designed to provide you with a tranquil retreat, with modern ameni
 
  
   </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.getElementById('menu-btn');
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (menuBtn && hamburger && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+      });
+    } else {
+      console.error('One or more elements not found');
+    }
+  });
+</script>
+
+
   
 </body>
 
